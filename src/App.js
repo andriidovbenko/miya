@@ -7,7 +7,10 @@ import {
 import { Container, Row } from 'react-bootstrap'
 import './App.scss'
 
-import Store from './components/alternative/Alternative';
+import Alternative from './pages/alternative/Alternative';
+import Home from './pages/home/Home';
+import Original from './pages/original/Original'
+import Basket from './pages/basket/Basket'
 import Navigation from './components/navigation/Navigation';
 import Footer from './components/footer/Footer';
 
@@ -30,8 +33,11 @@ function App() {
                   <Route path="/original">
                     <Original />
                   </Route>
+                  <Route path="/basket">
+                    <Basket />
+                  </Route>
                   <Route path="/">
-                    <Store />
+                    <Alternative />
                   </Route>
                 </Switch>
               </Row>
@@ -46,14 +52,5 @@ function App() {
     </Router>
   );
 }
-
-function Home() {
-  return <h2>For Home</h2>;
-}
-
-function Original() {
-  return <h2>Original</h2>;
-}
-
 
 export default App;
