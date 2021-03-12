@@ -1,16 +1,11 @@
 import { Card, CardColumns, Button, Breadcrumb } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
 
-const Store = () => {
-    const items = [
-        {
-            title: 'Chanel №5',
-            description : {
-                up: 'альдегиды, нероли, иланг-иланг',
-                mid: 'ирис, жасмин, роза',
-                base: 'амбра, сандал, ваниль'
-            }
-        },
-    ];
+const Alteranative = () => {
+    const dispatch = useDispatch()
+    const items = useSelector(state => {
+        return state.alternativeItems;
+    })
 
     return (
         <div className="miya-store">
@@ -23,26 +18,26 @@ const Store = () => {
             </Breadcrumb>
             <CardColumns> 
                 {
-                    [...items, ...items, ...items, ...items, ...items].map(({title, description}) => (
+                    items.map((item) => (
                     <Card>
                         <Card.Img variant="top" src="./101.jpg" />
                         <Card.Body>
-                            <Card.Title>{title}</Card.Title>
+                            <Card.Title>{item.title}</Card.Title>
                             <Card.Text>
                             <b>Верхні ноти:</b>
                             <br/>
-                            {description.up}
+                            {item.description.up}
                             <br/>
                             <b>Ноти серця:</b>
                             <br/>
-                            {description.mid}
+                            {item.description.mid}
                             <br/>
                             <b>Базові ноти:</b>
                             <br/>
-                            {description.base}
+                            {item.description.base}
                             <br/>
                             </Card.Text>
-                            <Button variant="primary">Обрати</Button>
+                            <Button variant="primary" onClick={() => dispatch({ type: 'BASKET/ADD_ITEM', payload: item})}>Обрати</Button>
                         </Card.Body>
                     </Card>
                     ))
@@ -52,4 +47,4 @@ const Store = () => {
     );
 }
 
-export default Store;
+export default Alteranative;

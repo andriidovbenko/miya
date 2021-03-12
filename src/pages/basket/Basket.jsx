@@ -1,18 +1,11 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { Table, Image } from 'react-bootstrap'
 
 function Basket() {
-    const items = [
-        {
-            title: 'Chanel №5',
-            description : {
-                up: 'альдегиды, нероли, иланг-иланг',
-                mid: 'ирис, жасмин, роза',
-                base: 'амбра, сандал, ваниль'
-            },
-            price: 87
-        },
-    ];
+    const items = useSelector(state => {
+        return state.basketItems;
+    })
 
     return (
         <div className="miya-basket">
@@ -31,7 +24,7 @@ function Basket() {
                 </thead>
                 <tbody>
                     {
-                        [...items, ...items, ...items, ...items, ...items].map(({title, price}, i) => (
+                        items.map(({title, price}, i) => (
                             <tr>
                                 <td>{i + 1}</td>
                                 <td><Image src="./101.jpg" rounded fluid/></td>
