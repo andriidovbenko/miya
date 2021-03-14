@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, Navbar, Form, FormControl, Button, Container } from 'react-bootstrap'
+import { Nav, Navbar, Form, FormControl, Button, Container } from 'react-bootstrap';
 import { FaShoppingBasket as ShoppingBasket } from 'react-icons/fa';
 
 const Navigation = () => (
     <div className="miya-navigation">
         <Navbar bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="#home">MIYA Store</Navbar.Brand>
+                <Link to="/" className="nav-link" role="button">
+                    <Navbar.Brand>MIYA Store</Navbar.Brand>
+                </Link>
                 <Nav className="mr-auto">
                     <Link to="/" className="nav-link" role="button">Альтенатива</Link>
                     <Link to="/for-home" className="nav-link" role="button">Для дому</Link>

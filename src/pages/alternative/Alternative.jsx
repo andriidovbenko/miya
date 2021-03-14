@@ -1,5 +1,6 @@
-import { Card, CardColumns, Button, Breadcrumb } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import { Card, CardColumns, Button, Breadcrumb } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToBasket } from '../../actions/basket';
 
 const Alteranative = () => {
     const dispatch = useDispatch()
@@ -37,7 +38,7 @@ const Alteranative = () => {
                                     {item.description.base}
                                     <br/>
                                 </Card.Text>
-                                <Button variant="primary" onClick={ () => dispatch( { type: 'BASKET/ADD_ITEM', payload: item } ) }>Обрати</Button>
+                                <Button variant="primary" onClick={ () => dispatch( addToBasket(item) ) }>Обрати</Button>
                             </Card.Body>
                         </Card>
                     ))
