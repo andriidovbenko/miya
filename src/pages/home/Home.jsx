@@ -7,6 +7,7 @@ import Card from '../../components/card/Card';
 
 function Home() {
     const dispatch = useDispatch()
+
     const items = useSelector(state => {
         return state.goods.forHome;
     });

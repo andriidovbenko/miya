@@ -1,10 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Table, Image } from 'react-bootstrap'
+import { Table, Image, Button } from 'react-bootstrap'
+import { BsTrash as TrashIcon } from 'react-icons/bs';
+import cogoToast from 'cogo-toast';
+import { deleteBasketItem } from '../../actions/basket';
 
 const Basket = () => {
+    const dispatch = useDispatch()
+
     const items = useSelector(state => {
-        console.log(state);
         return state.basketItems;
     })
 
@@ -12,6 +16,11 @@ const Basket = () => {
         let sum = 0;
         items.forEach(item => sum = sum + item.price * item.amount);
         return sum;
+    }
+
+    const onDeleteButtonClick = (id, title) => {
+        dispatch(deleteBasketItem(id));
+        cogoToast.warn('Видалено', { position: 'top-right', heading: title });
     }
 
     return (
@@ -32,6 +41,7 @@ const Basket = () => {
                                         <th>Кількість</th>
                                         <th>Ціна</th>
                                         <th>Cума</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,6 +54,11 @@ const Basket = () => {
                                                 <td>{amount}</td>
                                                 <td>{price}</td>
                                                 <td>{amount * price}</td>
+                                                <td>
+                                                    <Button onClick={ () => onDeleteButtonClick(id, title) }>
+                                                        <TrashIcon />
+                                                    </Button>
+                                                </td>
                                             </tr>
                                         ))
                                     }
