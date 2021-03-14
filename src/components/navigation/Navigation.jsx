@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Nav, Navbar, Form, FormControl, Button, Container } from 'react-bootstrap'
-import { FaShoppingBasket as ShoppingBasket } from "react-icons/fa";
+import { FaShoppingBasket as ShoppingBasket } from 'react-icons/fa';
 
 const Navigation = () => (
     <div className="miya-navigation">
