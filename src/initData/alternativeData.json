@@ -1,5 +1,6 @@
 [
     {
+      "id": "2913a7da-502b-4245-8c3e-0061cb088cac",
       "title": "Chanel №5",
       "image": "./101.jpg",
       "description": {
@@ -10,6 +11,7 @@
       "price": 87
     },
     {
+      "id": "36c3065c-e604-4f79-96b3-66a336171f8b",
       "title": "Opium",
       "image": "./107.jpeg",
       "description": {
@@ -20,6 +22,7 @@
       "price": 87
     },
     {
+      "id": "7019d0bb-79f5-41db-991e-673fc7db6120",
       "title": "Poison",
       "image": "./118.jpeg",
       "description": {
@@ -30,6 +33,7 @@
       "price": 87
     },
     {
+      "id": "6157b995-ce15-458e-a437-57c35433f041",
       "title": "Azzaro Chrome United",
       "image": "./206.jpeg",
       "description": {
@@ -40,6 +44,7 @@
       "price": 87
     },
     {
+      "id": "591905c3-ba0f-4035-af2f-6e607f7da7df",
       "title": "Chanel №5",
       "image": "./273.jpeg",
       "description": {

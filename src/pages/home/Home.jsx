@@ -20,7 +20,7 @@ function Home() {
         <div className="miya-store">
             <CardColumns> 
                 {
-                    items.map((item) => <Card item={ item } onAddToBasket={ onAddToBasketClick }/>)
+                    items.map((item) => <Card item={ item } key={ item.id } onAddToBasket={ onAddToBasketClick }/>)
                 }
             </CardColumns>
         </div>

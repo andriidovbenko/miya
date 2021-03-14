@@ -26,7 +26,7 @@ const Alteranative = () => {
             </Breadcrumb>
             <CardColumns> 
                 {
-                    items.map((item) =>  <Card item={ item } onAddToBasket={ onAddToBasketClick } />)
+                    items.map((item) =>  <Card item={ item } onAddToBasket={ onAddToBasketClick } key={ item.id } />)
                 }
             </CardColumns>
         </div>

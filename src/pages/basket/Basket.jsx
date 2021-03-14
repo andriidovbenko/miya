@@ -2,10 +2,17 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Table, Image } from 'react-bootstrap'
 
-function Basket() {
+const Basket = () => {
     const items = useSelector(state => {
+        console.log(state);
         return state.basketItems;
     })
+
+    const getSum = () => {
+        let sum = 0;
+        items.forEach(item => sum = sum + item.price * item.amount);
+        return sum;
+    }
 
     return (
         <div className="miya-basket">
@@ -29,20 +36,21 @@ function Basket() {
                                 </thead>
                                 <tbody>
                                     {
-                                        items.map(({ title, price, image }, i) => (
-                                            <tr>
+                                        items.map(({ title, price, image, amount, id }, i) => (
+                                            <tr key={ id }>
                                                 <td>{i + 1}</td>
                                                 <td><Image src={ image } rounded fluid/></td>
                                                 <td>{title}</td>
-                                                <td>1</td>
+                                                <td>{amount}</td>
                                                 <td>{price}</td>
-                                                <td>{price}</td>
+                                                <td>{amount * price}</td>
                                             </tr>
                                         ))
                                     }
                                 </tbody>
                             </Table>
                         </div>
+                        <p>До оплати: <b>{ getSum() } грн</b></p>
                     </>
                 )
             }
