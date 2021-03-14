@@ -1,12 +1,19 @@
-import { Card, CardColumns, Button, Breadcrumb } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { CardColumns, Breadcrumb } from 'react-bootstrap';
+import cogoToast from 'cogo-toast';
 import { addToBasket } from '../../actions/basket';
+import Card from '../../components/card/Card';
 
 const Alteranative = () => {
     const dispatch = useDispatch()
     const items = useSelector(state => {
         return state.goods.alternative;
     })
+
+    const onAddToBasketClick = (item) => {
+        dispatch(addToBasket(item));
+        cogoToast.success('Додано до корзини', { position: 'top-right', heading: item.title });
+    }
 
     return (
         <div className="miya-store">
@@ -19,29 +26,7 @@ const Alteranative = () => {
             </Breadcrumb>
             <CardColumns> 
                 {
-                    items.map((item) => (
-                        <Card>
-                            <Card.Img variant="top" src={ item.image } />
-                            <Card.Body>
-                                <Card.Title>{ item.title }</Card.Title>
-                                <Card.Text>
-                                    <b>Верхні ноти:</b>
-                                    <br/>
-                                    { item.description.up }
-                                    <br/>
-                                    <b>Ноти серця:</b>
-                                    <br/>
-                                    { item.description.mid }
-                                    <br/>
-                                    <b>Базові ноти:</b>
-                                    <br/>
-                                    { item.description.base }
-                                    <br/>
-                                </Card.Text>
-                                <Button variant="primary" onClick={ () => dispatch( addToBasket(item) ) }>Обрати</Button>
-                            </Card.Body>
-                        </Card>
-                    ))
+                    items.map((item) =>  <Card item={ item } onAddToBasket={ onAddToBasketClick } />)
                 }
             </CardColumns>
         </div>
