@@ -3,7 +3,7 @@ import goodsReducer from './goodsReducer';
 import basketReducer from './basketReducer'
 
 const rootReducer = combineReducers({
-    alternativeItems: goodsReducer,
+    goods: goodsReducer,
     basketItems: basketReducer
 })
   

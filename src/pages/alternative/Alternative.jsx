@@ -5,7 +5,7 @@ import { addToBasket } from '../../actions/basket';
 const Alteranative = () => {
     const dispatch = useDispatch()
     const items = useSelector(state => {
-        return state.alternativeItems;
+        return state.goods.alternative;
     })
 
     return (
@@ -21,21 +21,21 @@ const Alteranative = () => {
                 {
                     items.map((item) => (
                         <Card>
-                            <Card.Img variant="top" src="./101.jpg" />
+                            <Card.Img variant="top" src={ item.image } />
                             <Card.Body>
-                                <Card.Title>{item.title}</Card.Title>
+                                <Card.Title>{ item.title }</Card.Title>
                                 <Card.Text>
                                     <b>Верхні ноти:</b>
                                     <br/>
-                                    {item.description.up}
+                                    { item.description.up }
                                     <br/>
                                     <b>Ноти серця:</b>
                                     <br/>
-                                    {item.description.mid}
+                                    { item.description.mid }
                                     <br/>
                                     <b>Базові ноти:</b>
                                     <br/>
-                                    {item.description.base}
+                                    { item.description.base }
                                     <br/>
                                 </Card.Text>
                                 <Button variant="primary" onClick={ () => dispatch( addToBasket(item) ) }>Обрати</Button>
