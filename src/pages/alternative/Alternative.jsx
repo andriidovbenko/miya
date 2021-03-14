@@ -1,16 +1,12 @@
-import { Card, CardColumns, Button, Breadcrumb } from 'react-bootstrap'
+import { Card, CardColumns, Button, Breadcrumb } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToBasket } from '../../actions/basket';
 
-const Store = () => {
-    const items = [
-        {
-            title: 'Chanel №5',
-            description : {
-                up: 'альдегиды, нероли, иланг-иланг',
-                mid: 'ирис, жасмин, роза',
-                base: 'амбра, сандал, ваниль'
-            }
-        },
-    ];
+const Alteranative = () => {
+    const dispatch = useDispatch()
+    const items = useSelector(state => {
+        return state.alternativeItems;
+    })
 
     return (
         <div className="miya-store">
@@ -23,28 +19,28 @@ const Store = () => {
             </Breadcrumb>
             <CardColumns> 
                 {
-                    [...items, ...items, ...items, ...items, ...items].map(({title, description}) => (
-                    <Card>
-                        <Card.Img variant="top" src="./101.jpg" />
-                        <Card.Body>
-                            <Card.Title>{title}</Card.Title>
-                            <Card.Text>
-                            <b>Верхні ноти:</b>
-                            <br/>
-                            {description.up}
-                            <br/>
-                            <b>Ноти серця:</b>
-                            <br/>
-                            {description.mid}
-                            <br/>
-                            <b>Базові ноти:</b>
-                            <br/>
-                            {description.base}
-                            <br/>
-                            </Card.Text>
-                            <Button variant="primary">Обрати</Button>
-                        </Card.Body>
-                    </Card>
+                    items.map((item) => (
+                        <Card>
+                            <Card.Img variant="top" src="./101.jpg" />
+                            <Card.Body>
+                                <Card.Title>{item.title}</Card.Title>
+                                <Card.Text>
+                                    <b>Верхні ноти:</b>
+                                    <br/>
+                                    {item.description.up}
+                                    <br/>
+                                    <b>Ноти серця:</b>
+                                    <br/>
+                                    {item.description.mid}
+                                    <br/>
+                                    <b>Базові ноти:</b>
+                                    <br/>
+                                    {item.description.base}
+                                    <br/>
+                                </Card.Text>
+                                <Button variant="primary" onClick={ () => dispatch( addToBasket(item) ) }>Обрати</Button>
+                            </Card.Body>
+                        </Card>
                     ))
                 }
             </CardColumns>
@@ -52,4 +48,4 @@ const Store = () => {
     );
 }
 
-export default Store;
+export default Alteranative;
