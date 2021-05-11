@@ -1,19 +1,15 @@
 import React from 'react';
 import { CardColumns } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
 import cogoToast from 'cogo-toast';
-import { addToBasket } from '../../actions/basket';
 import Card from '../../components/card/Card';
+import { useStore } from '../../stores/rootStore'
 
 function Home() {
-    const dispatch = useDispatch()
-
-    const items = useSelector(state => {
-        return state.goods.forHome;
-    });
+    const store = useStore();
+    const items = store.goodsStore.forHome
 
     const onAddToBasketClick = (item) => {
-        dispatch(addToBasket(item));
+        store.basketStore.addItem(item)
         cogoToast.success('Додано до корзини', { position: 'top-right', heading: item.title });
     }
 

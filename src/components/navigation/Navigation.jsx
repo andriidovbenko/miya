@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { observer } from 'mobx-react-lite'
 import { Nav, Navbar, Form, FormControl, Button, Container } from 'react-bootstrap';
 import { FaShoppingBasket as ShoppingBasket } from 'react-icons/fa';
 import Badge from '@material-ui/core/Badge';
+import { useStore } from '../../stores/rootStore'
 
-const Navigation = () => {
-    const itemsInBasket = useSelector(state => {
-        return state.basketItems.length;
-    });
+const Navigation = observer(() => {
+    const store = useStore();
 
     return (
         <div className="miya-navigation">
@@ -27,7 +26,7 @@ const Navigation = () => {
                         <Button variant="outline-info">Пошук</Button>
                     </Form>
                     <Link to="/basket" className="nav-link" role="button">
-                        <Badge badgeContent={ itemsInBasket } color="secondary">
+                        <Badge badgeContent={ store.basketStore.itemsInBasket } color="secondary">
                             <ShoppingBasket />
                         </Badge>
                     </Link>
@@ -35,6 +34,6 @@ const Navigation = () => {
             </Navbar>
         </div>
     )
-}
+})
 
 export default Navigation
