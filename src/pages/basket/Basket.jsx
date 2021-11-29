@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Table, Image, Button } from 'react-bootstrap'
+import { Table, Image, Button, InputGroup, FormControl } from 'react-bootstrap'
 import { BsTrash as TrashIcon } from 'react-icons/bs';
-import cogoToast from 'cogo-toast';
-import { deleteBasketItem } from '../../actions/basket';
+import { toast, toastTypes } from '../../utils/toast';
+import { deleteBasketItem, increaseItemAmount, decreaseItemAmount } from '../../actions/basket';
+import { processOreder } from '../../actions/orders';
+import OrederModal from '../../components/order-modal/OrderModal';
 
 const Basket = () => {
     const dispatch = useDispatch()
@@ -20,7 +22,28 @@ const Basket = () => {
 
     const onDeleteButtonClick = (id, title) => {
         dispatch(deleteBasketItem(id));
-        cogoToast.warn('Видалено', { position: 'top-right', heading: title });
+        toast(toastTypes.warn, title)
+    }
+
+    const onSubmitHandler = (buyerInfo) => {
+        const orderData = {
+            buyerInfo,
+            orderItems: items.map(({ amount, price, title, type, _id }) => {
+                return { amount, price, title, type, _id, sum: amount * price }
+            })
+        }
+        dispatch(processOreder(orderData,
+            () => toast(toastTypes.success, 'Замовлення прийнято в роботу', ' '),
+            () => toast(toastTypes.error, 'Ой, щось сталося', 'Спробуйте ще раз'),
+        ))
+    }
+
+    const increaseAmountHandler = id => {
+        dispatch(increaseItemAmount(id))
+    }
+
+    const decreaseAmountHandler = id => {
+        dispatch(decreaseItemAmount(id))
     }
 
     return (
@@ -39,23 +62,29 @@ const Basket = () => {
                                         <th>Зображення</th>
                                         <th>Назва</th>
                                         <th>Кількість</th>
-                                        <th>Ціна</th>
-                                        <th>Cума</th>
+                                        <th>Ціна, грн</th>
+                                        <th>Cума, грн</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        items.map(({ title, price, image, amount, id }, i) => (
-                                            <tr key={ id }>
+                                        items.map(({ title, price, amount, _id }, i) => (
+                                            <tr key={ _id }>
                                                 <td>{i + 1}</td>
-                                                <td><Image src={ image } rounded fluid/></td>
+                                                <td><Image src={ 'http://localhost:3000/goods/image/' + _id } rounded fluid/></td>
                                                 <td>{title}</td>
-                                                <td>{amount}</td>
-                                                <td>{price}</td>
-                                                <td>{amount * price}</td>
                                                 <td>
-                                                    <Button onClick={ () => onDeleteButtonClick(id, title) }>
+                                                    <div className="amount">
+                                                        <Button variant="outline-secondary" size="sm" onClick={ () => decreaseAmountHandler(_id) }>-1</Button>
+                                                        <FormControl size="sm" value={ amount } disabled />
+                                                        <Button variant="outline-secondary" size="sm"onClick={ () => increaseAmountHandler(_id) }>+1</Button>
+                                                    </div>
+                                                </td>
+                                                <td>{price.toFixed(2)}</td>
+                                                <td>{(amount * price).toFixed(2)}</td>
+                                                <td>
+                                                    <Button onClick={ () => onDeleteButtonClick(_id, title) }>
                                                         <TrashIcon />
                                                     </Button>
                                                 </td>
@@ -66,6 +95,7 @@ const Basket = () => {
                             </Table>
                         </div>
                         <p>До оплати: <b>{ getSum() } грн</b></p>
+                        <OrederModal onSubmit={ onSubmitHandler } >Зробити замовлення</OrederModal>
                     </>
                 )
             }

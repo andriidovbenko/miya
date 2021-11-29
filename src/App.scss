@@ -1,3 +1,9 @@
 @import './components/navigation/navigation';
 @import './pages/alternative/alternative';
 @import './pages/basket/basket';
+@import './pages/admin/admin';
+
+.main > .container > .row > div {
+    width: 100%;
+    margin: 25px 0;
+}
